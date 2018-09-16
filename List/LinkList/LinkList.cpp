@@ -21,6 +21,7 @@ public:
 	void Insert(int i, T e);
 	void CreateList(int n);
 	void ListDisp();
+	void Inverse();
 };
 
 
@@ -150,6 +151,26 @@ void LinkList<T>::ListDisp() {
 	cout<<endl;
 	return;
 }
+
+template <class T>
+void LinkList<T>:: Inverse() {
+	Node<T> *p = Head -> next;
+	Node<T> *s = p -> next;
+	Node<T> *t = s -> next;
+	p -> next = NULL;
+	s -> next = p;
+	while (t -> next) {
+	p = s;
+	s = t;
+	t = t -> next;
+	s -> next = p;
+	}
+	s -> next = p;
+	t -> next = s;
+	Head -> next = t;
+	return;
+}
+
 
 int main() {
 	LinkList<int> a;
