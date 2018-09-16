@@ -1,4 +1,4 @@
-#include <iosteram>
+#include <iostream>
 using namespace std;
 
 
@@ -20,6 +20,7 @@ public:
 	T Delete(int i);
 	void Insert(int i, T e);
 	void CreateList(int n);
+	void ListDisp();
 };
 
 
@@ -29,14 +30,22 @@ LinkList<T>::LinkList(){
 }
 template <class T>
 LinkList<T>::~LinkList(){
-	Node *p = Head;
+	/*
+	Node<T> *p = Head;
 	while(p) {
 		Head = Head -> next;
 		delete p;
 		p = Head;
 	}
-
+	Head = NULL;    
+	*/
+	while(Head) {
+		Node<T> *p = Head;
+		Head = Head -> next;
+		delete p;
+	}
 	Head = NULL;
+	return;
 }
 
 template <class T>
@@ -53,7 +62,7 @@ T LinkList<T>::GetElem(int i) {
 		exit(3);
 	}
 	else {
-		return p - >data;
+		return p -> data;
 	}
 }
 
@@ -69,7 +78,7 @@ T LinkList<T>::Delete(int i) {
 	}
 	if (!p -> next || j > i - 1) {
 		cout <<"Wrong position"<<endl;
-		exit(3):
+		exit(3);
 	}
 	else {
 		q = p -> next;
@@ -84,22 +93,69 @@ T LinkList<T>::Delete(int i) {
 }
 
 
+
 template <class T>
-void LinkList<T>::Insert(int i,T e) {
-	int *p = Head;
+void LinkList<T>::CreateList(int n) {
+	for(int i = 0; i < 10; i++) {
+		Node<T>* s = new Node<T>;
+		cin>>s -> data;
+		s -> next = Head -> next;
+		Head -> next = s;
+	}
+	return;
+}
+
+template <class T>
+void LinkList<T>::Insert(int i, T e) {
+	Node<T>* p = Head;
 	int j = 0;
-	while (p && j < i - 1) {
+	while(p && j < i - 1) {
 		p = p -> next;
 		j++;
 	}
 
-	if (!p && j > i - 1) {
+	if (!p || j > i - 1) {
 		cout<<"Wrong position"<<endl;
 		exit(3);
 	} else {
-		Node<T> *s;
+		Node<T> *s = new Node<T>;
 		s -> data = e;
 		s -> next = p -> next;
 		p -> next = s;
 	}
+	return;
+}
+
+
+template <class T>
+void LinkList<T>::CreateList(int n) {
+	Node<T> *p = Head;	
+	for (int i = 0; i < 10; i++) {
+		Node<T> *s = new Node<T>;
+		cin>>s -> data;
+		s -> next = p -> next;
+		p -> next = s;
+		p = p -> next;
+	}
+	return;
+}
+
+template <class T>
+void LinkList<T>::ListDisp() {
+	Node<T> *p = Head->next;
+	while(p) {
+		cout<<p -> data<<' ';
+		p = p -> next;
+	}
+	cout<<endl;
+	return;
+}
+
+int main() {
+	LinkList<int> a;
+	a.CreateList(10);
+	a.ListDisp();
+	cout<<endl;
+	return 0;
+
 }
