@@ -80,8 +80,8 @@ void SqStack<T>::StackTranverse() {
 		T temp;
 		temp = *(base+i);
 
-		*(base + i) = *(base+(top - i - 1)) ;
-		*(base + top - i - 1) = temp;
+		*(base + i) = *(base+(top - 1 - i)) ;
+		*(base + top - 1 - i) = temp;
 	}
 	return;
 }
